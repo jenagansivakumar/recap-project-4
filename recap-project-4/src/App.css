@@ -7,3 +7,9 @@
 .activity_form {
   border: 10px solid black;
 }
+
+body {
+  background-image: url("https://img.freepik.com/free-vector/watercolor-weather-effects-collection_23-2149115331.jpg?size=626&ext=jpg");
+  text-align: center;
+  font-size: 40px;
+}

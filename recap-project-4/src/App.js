@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../src/App.css";
 
 export default function App({ onAddActivity = () => {} }) {
   const [activity, setActivity] = useState("");
@@ -32,7 +33,7 @@ export default function App({ onAddActivity = () => {} }) {
         />
       </label>
       <br />
-      <button type="submit">Add</button>
+      <button type="submit">Submit</button>
     </form>
   );
 }
