@@ -1,39 +1,35 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
+import Form from "./Form";
+import List from "./List";
 import "../src/App.css";
 
-export default function App({ onAddActivity = () => {} }) {
-  const [activity, setActivity] = useState("");
-  const [isGoodWeather, setIsGoodWeather] = useState(false);
+function App() {
+  const [activities, setActivities] = useState([]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    onAddActivity({ activity, isGoodWeather });
-    setActivity("");
-    setIsGoodWeather(false);
+  useEffect(() => {
+    const storedActivities = JSON.parse(localStorage.getItem("activities"));
+    if (storedActivities) {
+      setActivities(storedActivities);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("activities", JSON.stringify(activities));
+  }, [activities]);
+
+  function handleAddActivity(newActivity) {
+    const id = uuidv4();
+    const activity = { ...newActivity, id };
+    setActivities([...activities, activity]);
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add Activity</h2>
-      <label>
-        Name of Activity:
-        <input
-          type="text"
-          value={activity}
-          onChange={(e) => setActivity(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Good Weather Activity:
-        <input
-          type="checkbox"
-          checked={isGoodWeather}
-          onChange={(e) => setIsGoodWeather(e.target.checked)}
-        />
-      </label>
-      <br />
-      <button type="submit">Submit</button>
-    </form>
+    <div className="App">
+      <Form onAddActivity={handleAddActivity} />
+      <List activities={activities} />
+    </div>
   );
 }
+
+export default App;
