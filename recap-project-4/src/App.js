@@ -1,33 +1,49 @@
-import React, { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useState, useEffect } from "react";
 import Form from "./Form";
 import List from "./List";
-import "../src/App.css";
 
 function App() {
   const [activities, setActivities] = useState([]);
+  const [goodWeatherActivities, setGoodWeatherActivities] = useState([]);
+  const [badWeatherActivities, setBadWeatherActivities] = useState([]);
 
   useEffect(() => {
-    const storedActivities = JSON.parse(localStorage.getItem("activities"));
-    if (storedActivities) {
-      setActivities(storedActivities);
-    }
+    const storedActivities = JSON.parse(
+      localStorage.getItem("activities") || "[]"
+    );
+    setActivities(storedActivities);
   }, []);
 
   useEffect(() => {
+    const filteredActivities = activities.filter(
+      (activity) => activity.isForGoodWeather === true
+    );
+    setGoodWeatherActivities(filteredActivities);
+    const filteredActivities2 = activities.filter(
+      (activity) => activity.isForGoodWeather === false
+    );
+    setBadWeatherActivities(filteredActivities2);
     localStorage.setItem("activities", JSON.stringify(activities));
   }, [activities]);
 
-  function handleAddActivity(newActivity) {
-    const id = uuidv4();
-    const activity = { ...newActivity, id };
-    setActivities([...activities, activity]);
-  }
+  const handleAddActivity = (activity) => {
+    setActivities((prevActivities) => [...prevActivities, activity]);
+  };
+
+  const handleDeleteActivity = (id) => {
+    setActivities((prevActivities) =>
+      prevActivities.filter((activity) => activity.id !== id)
+    );
+  };
 
   return (
-    <div className="App">
+    <div>
       <Form onAddActivity={handleAddActivity} />
-      <List activities={activities} />
+      <List
+        goodWeatherActivities={goodWeatherActivities}
+        badWeatherActivities={badWeatherActivities}
+        onDeleteActivity={handleDeleteActivity}
+      />
     </div>
   );
 }

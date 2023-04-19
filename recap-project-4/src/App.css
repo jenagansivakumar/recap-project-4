@@ -13,3 +13,14 @@ body {
   text-align: center;
   font-size: 40px;
 }
+
+#good_weather_activity {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.List-section {
+  display: inline-block;
+  vertical-align: top;
+  width: 45%;
+  margin-right: 5%;
+}
