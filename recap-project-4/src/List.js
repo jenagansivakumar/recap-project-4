@@ -1,39 +1,13 @@
-export default function List(props) {
-  const {
-    activities,
-    goodWeatherActivities,
-    badWeatherActivities,
-    onDeleteActivity,
-  } = props;
+import React from "react";
 
+const List = ({ activities }) => {
   return (
-    <div className="List">
-      <div className="List-section">
-        <h2>Good Weather Activities</h2>
-        <ul>
-          {goodWeatherActivities.map((activity) => (
-            <li key={activity.id}>
-              {activity.name}
-              <button onClick={() => onDeleteActivity(activity.id)}>
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="List-section">
-        <h2>Bad Weather Activities</h2>
-        <ul>
-          {badWeatherActivities.map((activity) => (
-            <li key={activity.id}>
-              {activity.name}
-              <button onClick={() => onDeleteActivity(activity.id)}>
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <ul>
+      {activities.map((activity, index) => (
+        <li key={index}>{activity.activity}</li>
+      ))}
+    </ul>
   );
-}
+};
+
+export default List;

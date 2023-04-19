@@ -1,45 +1,41 @@
-import { useState, useRef } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState } from "react";
 
-export default function Form({ onAddActivity }) {
-  const [activityName, setActivityName] = useState("");
+const Form = ({ onAddActivity }) => {
+  const [activity, setActivity] = useState("");
   const [isForGoodWeather, setIsForGoodWeather] = useState(false);
-  const nameInputRef = useRef();
 
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const newActivity = {
-      id: uuidv4(),
-      name: activityName,
-      isForGoodWeather: isForGoodWeather,
-    };
+    const newActivity = { activity, isForGoodWeather };
     onAddActivity(newActivity);
-    setActivityName("");
+    setActivity("");
     setIsForGoodWeather(false);
-    nameInputRef.current.focus();
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Add a new activity</h2>
-      <label>
-        Name of activity:
-        <input
-          type="text"
-          value={activityName}
-          onChange={(event) => setActivityName(event.target.value)}
-          ref={nameInputRef}
-        />
+      <h2>Weather and Activity App</h2>
+      <label htmlFor="activity">Activity:</label>
+      <input
+        type="text"
+        id="activity"
+        value={activity}
+        onChange={(event) => setActivity(event.target.value)}
+      />
+      <br />
+      <label htmlFor="isForGoodWeather">
+        Is it suitable for sunny weather?
       </label>
-      <label>
-        Is it a good-weather activity?
-        <input
-          type="checkbox"
-          checked={isForGoodWeather}
-          onChange={(event) => setIsForGoodWeather(event.target.checked)}
-        />
-      </label>
+      <input
+        type="checkbox"
+        id="isForGoodWeather"
+        checked={isForGoodWeather}
+        onChange={() => setIsForGoodWeather(!isForGoodWeather)}
+      />
+      <br />
       <button type="submit">Add Activity</button>
     </form>
   );
-}
+};
+
+export default Form;

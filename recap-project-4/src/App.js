@@ -1,51 +1,61 @@
-import { useState, useEffect } from "react";
-import Form from "./Form";
-import List from "./List";
+import "./App.css";
+import useLocalStorageState from "use-local-storage-state";
+import Entrylist from "./components/entrylist/entrylist";
+import Header from "./components/header/header";
+import Form from "./components/form/form";
+import Weather from "./components/weather/weather";
+import { useState } from "react";
+import { useEffect } from "react";
+import { uid } from "uid";
 
-function App() {
-  const [activities, setActivities] = useState([]);
-  const [goodWeatherActivities, setGoodWeatherActivities] = useState([]);
-  const [badWeatherActivities, setBadWeatherActivities] = useState([]);
+export default function App() {
+  const [entries, setEntries] = useLocalStorageState("entries", {
+    defaultValue: [],
+  });
+
+  const [weather, setWeather] = useState({
+    temperature: "10",
+    condition: "☀️",
+    isGoodWeather: true,
+  });
+
+  function handleAddEntry(newEntry) {
+    setEntries([{ id: uid(), ...newEntry }, ...entries]);
+  }
 
   useEffect(() => {
-    const storedActivities = JSON.parse(
-      localStorage.getItem("activities") || "[]"
-    );
-    setActivities(storedActivities);
-  }, []);
+    const interval = setInterval(fetchApi, 3000);
 
-  useEffect(() => {
-    const filteredActivities = activities.filter(
-      (activity) => activity.isForGoodWeather === true
-    );
-    setGoodWeatherActivities(filteredActivities);
-    const filteredActivities2 = activities.filter(
-      (activity) => activity.isForGoodWeather === false
-    );
-    setBadWeatherActivities(filteredActivities2);
-    localStorage.setItem("activities", JSON.stringify(activities));
-  }, [activities]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [weather]);
 
-  const handleAddActivity = (activity) => {
-    setActivities((prevActivities) => [...prevActivities, activity]);
-  };
+  async function fetchApi() {
+    const response = await fetch("https://example-apis.vercel.app/api/weather");
+    const data = await response.json();
+    setWeather(data);
+  }
 
-  const handleDeleteActivity = (id) => {
-    setActivities((prevActivities) =>
-      prevActivities.filter((activity) => activity.id !== id)
-    );
-  };
+  function removeEntry(id) {
+    setEntries(entries.filter((entry) => entry.id !== id));
+  }
+
+  const badWeatherEntries = entries.filter((entry) => !entry.isGoodWeather);
+  const goodWeatherEntries = entries.filter((entry) => entry.isGoodWeather);
 
   return (
-    <div>
-      <Form onAddActivity={handleAddActivity} />
-      <List
-        goodWeatherActivities={goodWeatherActivities}
-        badWeatherActivities={badWeatherActivities}
-        onDeleteActivity={handleDeleteActivity}
+    <>
+      <Header />
+      <Weather currentWeather={weather} />
+      <Form onAddEntry={handleAddEntry} />
+
+      <Entrylist
+        activities={
+          weather.isGoodWeather ? goodWeatherEntries : badWeatherEntries
+        }
+        onRemoveEntry={removeEntry}
       />
-    </div>
+    </>
   );
 }
-
-export default App;
