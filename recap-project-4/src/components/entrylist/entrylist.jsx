@@ -4,7 +4,7 @@ export default function Entrylist({ activities, onRemoveEntry }) {
   return (
     <>
       <div className="entryList">
-        <h2> WEATHER ACTIVITIES</h2>
+        <h2 className="weather-activies"> Activities</h2>
         {activities.map((activity) => (
           <Entry
             className="entry-text"

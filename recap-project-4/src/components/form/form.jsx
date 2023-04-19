@@ -16,10 +16,19 @@ export default function Form({ onAddEntry }) {
       </label>
       <input id="activity" name="activity" type="text" />
       <div className="checkboxWrapper">
-        <label htmlFor="isGoodWeather" name="isGoodWeather">
-          Is this a 'good-weather' activity?
+        <label
+          className="suitable"
+          htmlFor="isGoodWeather"
+          name="isGoodWeather"
+        >
+          Suitable For Good Weather?
         </label>
-        <input type="checkbox" id="isGoodWeather" name="isGoodWeather" />
+        <input
+          className="checkbox"
+          type="checkbox"
+          id="isGoodWeather"
+          name="isGoodWeather"
+        />
       </div>
       <button type="submit">Submit!</button>
     </form>

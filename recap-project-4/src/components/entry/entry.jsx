@@ -1,8 +1,12 @@
 export default function Entry({ activity, onRemoveEntry, id }) {
   return (
-    <li>
+    <li className="entry-form-text">
       {activity}
-      <button onClick={() => onRemoveEntry(id)} type="button">
+      <button
+        className="delete-button"
+        onClick={() => onRemoveEntry(id)}
+        type="button"
+      >
         X
       </button>
     </li>

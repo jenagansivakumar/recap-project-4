@@ -15,7 +15,9 @@ const Form = ({ onAddActivity }) => {
   return (
     <form onSubmit={handleSubmit}>
       <h2>Weather and Activity App</h2>
-      <label htmlFor="activity">Activity:</label>
+      <label className="activity-label" htmlFor="activity">
+        Activity:
+      </label>
       <input
         placeholder="write what you would like to do"
         type="text"
@@ -24,9 +26,7 @@ const Form = ({ onAddActivity }) => {
         onChange={(event) => setActivity(event.target.value)}
       />
       <br />
-      <label htmlFor="isForGoodWeather">
-        Is it suitable for sunny weather?
-      </label>
+      <label htmlFor="isForGoodWeather"></label>
       <input
         type="checkbox"
         id="isForGoodWeather"
