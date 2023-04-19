@@ -7,6 +7,7 @@ export default function Entrylist({ activities, onRemoveEntry }) {
         <h2> WEATHER ACTIVITIES</h2>
         {activities.map((activity) => (
           <Entry
+            className="entry-text"
             key={activity.id}
             id={activity.id}
             activity={activity.activity}

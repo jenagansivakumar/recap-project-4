@@ -17,6 +17,7 @@ const Form = ({ onAddActivity }) => {
       <h2>Weather and Activity App</h2>
       <label htmlFor="activity">Activity:</label>
       <input
+        placeholder="write what you would like to do"
         type="text"
         id="activity"
         value={activity}
@@ -33,7 +34,9 @@ const Form = ({ onAddActivity }) => {
         onChange={() => setIsForGoodWeather(!isForGoodWeather)}
       />
       <br />
-      <button type="submit">Add Activity</button>
+      <button className="submit-button" type="submit">
+        Add Activity
+      </button>
     </form>
   );
 };
