@@ -1,7 +1,16 @@
-.heading {
-  font-size: x-large;
-  color: blueviolet;
+.header {
+  font-size: 50px;
+  color: rgb(121, 46, 250);
   text-align: center;
+  transition: font-size 5s, color 5s;
+  text-shadow: 10px black;
+  border-radius: 25px;
+}
+
+.header:hover {
+  color: rgb(44, 248, 255);
+  font-size: 70px;
+  transform: rotate3d(10deg);
 }
 
 .activity_form {
@@ -9,9 +18,8 @@
 }
 
 body {
-  background-image: url("https://img.freepik.com/free-vector/watercolor-weather-effects-collection_23-2149115331.jpg?size=626&ext=jpg");
+  background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/fs/3554a8104990647.5f8d2fc0859ef.gif);
   text-align: center;
-  font-size: 40px;
 }
 
 #good_weather_activity {
@@ -23,4 +31,25 @@ body {
   vertical-align: top;
   width: 45%;
   margin-right: 5%;
+}
+
+.weatherWrapper {
+  width: 300px;
+  border: 1px solid white;
+  padding: 50px;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  background-image: url(https://public-files.gumroad.com/6msgb4s8v25a7mjfy2z6eookef6h);
+  transition: all 0.3s ease-out;
+  height: 250px;
+  border-radius: 10px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.weatherWrapper:hover {
+  transform: scale(1.1);
+  background-color: #f0f0f0;
+  border-color: #555;
+  box-shadow: 0px 100px 20px 10px rgba(3, 4, 5, 0.2);
 }
